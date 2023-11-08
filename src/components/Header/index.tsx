@@ -32,6 +32,7 @@ const Header: FC<HeaderProps> = ({ isActive = true }) => {
             quality={100}
             width={65}
             height={65}
+            priority
             style={{ marginRight: "-1rem" }}
           />
         </MotionBox>

@@ -3,9 +3,9 @@ import { Action, State } from "./types";
 
 const stateCreator: StateCreator<State & Action> = (set) => ({
   bloom: false,
-  data: {},
+  data: null,
   homeData: {},
-  isLoading: true,
+  isLoaded: false,
   sections: [],
 
   /// setters
@@ -20,7 +20,7 @@ const stateCreator: StateCreator<State & Action> = (set) => ({
       set({ homeData });
     }
   },
-  setIsLoading: (isLoading: boolean) => set({ isLoading }),
+  setIsLoaded: (isLoaded: boolean) => set({ isLoaded }),
 });
 
 const useStore = create<State & Action>(stateCreator);

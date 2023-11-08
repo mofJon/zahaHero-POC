@@ -1,13 +1,13 @@
 export type State = {
   bloom: boolean;
-  data: Record<string, any>;
+  data: Record<string, any> | null;
   homeData: Record<string, any>;
-  isLoading: boolean;
+  isLoaded: boolean;
   sections: Record<string, any>[];
 };
 
 export type Action = {
   setBloom: (bloom: boolean) => void;
   setData: (data: Record<string, any>) => void;
-  setIsLoading: (isLoading: boolean) => void;
+  setIsLoaded: (isLoaded: boolean) => void;
 };

@@ -1,16 +1,26 @@
-export const staggerChildren = (isActive: boolean, delay: number = 0) => ({
+export const staggerChildren = (
+  isActive: boolean,
+  delay: number = 0,
+  staggerRate: number = 0.1,
+) => ({
   initial: "inactive",
   animate: isActive ? "active" : "inactive",
   variants: {
     inactive: {},
     active: {
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: staggerRate,
         delayChildren: delay,
       },
     },
   },
 });
+
+const smooth = {
+  type: "spring",
+  damping: 30,
+  stiffness: 150,
+};
 
 export const fadeUp = {
   variants: {
@@ -22,8 +32,7 @@ export const fadeUp = {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
-        damping: 30,
+        ...smooth,
         opacity: {
           duration: 1,
         },
@@ -47,3 +56,19 @@ export const fadeIn = (isActive: boolean, delay = 0) => ({
     },
   },
 });
+
+export const slideIn = {
+  variants: {
+    inactive: {
+      opacity: 0,
+      x: -50,
+    },
+    active: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        ...smooth,
+      },
+    },
+  },
+};

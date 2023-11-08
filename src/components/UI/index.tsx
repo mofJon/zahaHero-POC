@@ -9,11 +9,15 @@ interface IUI {
 }
 
 const UI: FC<IUI> = ({ children, data }) => {
-  const setData = useStore((state) => state.setData);
+  const [storedData, setData] = useStore((state) => [
+    state.data,
+    state.setData,
+  ]);
 
   // wouldn't do this with remote fetches. Just for local JSON
   useEffect(() => {
-    if (data) {
+    if (data && data !== storedData) {
+      console.log("ui", data, storedData);
       setData(data);
     }
   }, [data]);

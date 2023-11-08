@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { extend, useFrame, useThree } from "@react-three/fiber";
 import { ShaderMaterial } from "three";
 import { BlobMaskMaterial } from "./shaders/blobMaskShader.module";
@@ -21,7 +21,14 @@ const Scene = () => {
   const maskShader = useRef();
   const { size, viewport } = useThree();
   const mousePos = useMousePosition();
-  const isBloom = useStore((state) => state.bloom);
+  const [isBloom, setIsLoaded] = useStore((state) => [
+    state.bloom,
+    state.setIsLoaded,
+  ]);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   useFrame(({ clock }) => {
     if (maskShader.current) {
@@ -43,23 +50,26 @@ const Scene = () => {
     }
   });
 
-  return (
-    <>
-      <motion.mesh
-        animate={isBloom ? "active" : "inactive"}
-        variants={{
-          active: { scale: 8 },
-          inactive: { scale: 1 },
-        }}
-        transition={{
-          damping: 30,
-          stiffness: 100,
-        }}
-      >
-        <motion.planeGeometry args={[viewport.width, viewport.height]} />
-        <blobMaskMaterial ref={maskShader} />
-      </motion.mesh>
-    </>
+  return useMemo(
+    () => (
+      <>
+        <motion.mesh
+          animate={isBloom ? "active" : "inactive"}
+          variants={{
+            active: { scale: 8 },
+            inactive: { scale: 1 },
+          }}
+          transition={{
+            damping: 30,
+            stiffness: 100,
+          }}
+        >
+          <motion.planeGeometry args={[viewport.width, viewport.height]} />
+          <blobMaskMaterial ref={maskShader} />
+        </motion.mesh>
+      </>
+    ),
+    [isBloom],
   );
 };
 
