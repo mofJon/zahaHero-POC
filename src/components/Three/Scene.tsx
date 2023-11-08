@@ -21,13 +21,13 @@ const Scene = () => {
   const maskShader = useRef();
   const { size, viewport } = useThree();
   const mousePos = useMousePosition();
-  const [isBloom, setIsLoaded] = useStore((state) => [
+  const [isBloom, setShaderLoaded] = useStore((state) => [
     state.bloom,
-    state.setIsLoaded,
+    state.setShaderLoaded,
   ]);
 
   useEffect(() => {
-    setIsLoaded(true);
+    setShaderLoaded(true);
   }, []);
 
   useFrame(({ clock }) => {

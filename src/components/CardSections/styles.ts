@@ -33,7 +33,7 @@ export const card = (controls: AnimationControls) => ({
       bottom: 0,
       left: 0,
       zIndex: -1,
-      padding: "1px",
+      padding: "2px",
       mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
       maskComposite: "exclude",
       borderRadius: "inherit",

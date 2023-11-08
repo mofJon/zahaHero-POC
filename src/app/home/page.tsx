@@ -3,10 +3,11 @@ import { useMemo } from "react";
 import { CardSections, MotionBox, Three } from "@components";
 import { Container, HStack } from "@panda/jsx";
 import Image from "next/image";
-import background from "@assets/images/home.jpg";
+import Background from "@assets/images/home.jpg";
 import ContentBlock from "./ContentBlock";
 import ContentTitle from "./ContentTitle";
 import useStore from "@store";
+import { fadeIn } from "@theme/animations";
 import {
   backgroundHolder,
   heroWrapper,
@@ -15,27 +16,32 @@ import {
 } from "./styles.module";
 
 const Home = () => {
-  const [homeData, isLoaded, sections] = useStore((state) => [
+  const [homeData, isLoaded, sections, setHeroLoaded] = useStore((state) => [
     state.homeData,
     state.isLoaded,
     state.sections,
+    state.setHeroLoaded,
   ]);
 
   const { content, cta, title } = homeData;
 
-  console.log(homeData);
+  const handleHeroLoaded = () => {
+    setHeroLoaded(true);
+  };
 
   return (
     <>
       <Container {...mainContainer}>
-        {background && (
-          <MotionBox {...backgroundHolder}>
+        {Background && (
+          <MotionBox {...backgroundHolder} {...fadeIn(isLoaded, 1, 2)}>
             <Image
               alt="architecture"
-              src={`${background.src}`}
+              src={`${Background.src}`}
               quality={100}
               fill
+              priority
               sizes="100vw"
+              onLoad={handleHeroLoaded}
               style={{
                 objectFit: "cover",
               }}

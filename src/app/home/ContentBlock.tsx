@@ -12,12 +12,15 @@ import {
 } from "./styles.module";
 import Image from "next/image";
 import Down from "@assets/images/iconDownButton.svg";
+import useStore from "@store";
 
 interface IContentBlock {
   data: any; // would swap out for actual props, but for the sake of this demo!
 }
 
 const ContentBlock: FC<IContentBlock> = ({ data }) => {
+  const isLoaded = useStore((state) => state.isLoaded);
+
   if (!data) return null;
   const { title, copy, strapline, stats } = data;
 
@@ -28,7 +31,7 @@ const ContentBlock: FC<IContentBlock> = ({ data }) => {
   return (
     <Container {...scrollContainer}>
       {data && (
-        <MotionStack {...contentWrapper}>
+        <MotionStack {...contentWrapper(isLoaded)}>
           <HStack {...contentHeader}>
             <Text text={strapline} textStyle="h5" variant="inverse" ml="4rem" />
             <Image

@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
 import { Box } from "@panda/jsx";
@@ -11,7 +12,9 @@ const Three = () => {
     <Box {...canvasHolder}>
       <Canvas>
         <OrthographicCamera />
-        <Scene />
+        <Suspense fallback={null}>
+          <Scene />
+        </Suspense>
         {/* <Perf /> */}
       </Canvas>
     </Box>

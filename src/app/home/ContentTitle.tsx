@@ -21,7 +21,7 @@ const ContentTitle: FC<IContentTitle> = ({ title, cta }) => {
 
   return useMemo(
     () => (
-      <MotionStack {...mainTitle} {...staggerChildren(isLoaded, 0.5)}>
+      <MotionStack {...mainTitle} {...staggerChildren(isLoaded, 0.5, 0.2)}>
         {renderTitle}
         <MotionBox {...slideIn}>
           <CTA text={cta} mt="2.5rem" />

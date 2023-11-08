@@ -30,7 +30,7 @@ export const heroWrapper = {
   }),
 };
 
-export const contentWrapper = {
+export const contentWrapper = (active: boolean) => ({
   className: css({
     marginTop: "calc(100dvh - 10rem)",
     background: "white",
@@ -40,9 +40,22 @@ export const contentWrapper = {
     padding: "1rem 2rem 4rem",
     textAlign: "left",
     alignItems: "flex-start",
-    zIndex: 3,
+    zIndex: 4,
   }),
-};
+  initial: "inactive",
+  animate: active ? "active" : "inactive",
+  variants: {
+    inactive: { y: 200 },
+    active: {
+      y: 0,
+      transition: {
+        delay: 1,
+        type: "spring",
+        damping: 40,
+      },
+    },
+  },
+});
 
 export const contentHeader = {
   className: css({

@@ -6,14 +6,18 @@ import Image from "next/image";
 import Nav from "@assets/images/iconNav.svg";
 import { headerContainer, logoHolder, headerHolder, headerNav } from "./styles";
 import { fadeIn } from "@theme/animations";
-import { useRouter } from "next/navigation";
-
+import { useRouter, usePathname } from "next/navigation";
+import useStore from "@store";
 interface HeaderProps {
   isActive?: boolean;
 }
 
 const Header: FC<HeaderProps> = ({ isActive = true }) => {
+  const isLoaded = useStore((state) => state.isLoaded);
   const router = useRouter();
+  const pathname = usePathname();
+
+  if (pathname === "/") return null;
 
   const handleGoHome = () => {
     router.push("/");
@@ -25,7 +29,7 @@ const Header: FC<HeaderProps> = ({ isActive = true }) => {
         <MotionBox {...fadeIn(isActive)} {...logoHolder} onClick={handleGoHome}>
           Zaha Hadid Architects
         </MotionBox>
-        <MotionBox {...headerNav}>
+        <MotionBox {...headerNav} {...fadeIn(isLoaded, 1.4)}>
           <Image
             alt="nav"
             src={`${Nav.src}`}

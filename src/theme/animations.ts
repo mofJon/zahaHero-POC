@@ -18,7 +18,7 @@ export const staggerChildren = (
 
 const smooth = {
   type: "spring",
-  damping: 30,
+  damping: 40,
   stiffness: 150,
 };
 
@@ -41,7 +41,7 @@ export const fadeUp = {
   },
 };
 
-export const fadeIn = (isActive: boolean, delay = 0) => ({
+export const fadeIn = (isActive: boolean, delay = 0, duration: number = 1) => ({
   initial: "inactive",
   animate: isActive ? "active" : "inactive",
   variants: {
@@ -52,6 +52,7 @@ export const fadeIn = (isActive: boolean, delay = 0) => ({
       opacity: 1,
       transition: {
         delay,
+        duration,
       },
     },
   },
@@ -61,7 +62,7 @@ export const slideIn = {
   variants: {
     inactive: {
       opacity: 0,
-      x: -50,
+      x: -100,
     },
     active: {
       opacity: 1,
