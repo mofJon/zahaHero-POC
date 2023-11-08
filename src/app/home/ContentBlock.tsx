@@ -33,7 +33,12 @@ const ContentBlock: FC<IContentBlock> = ({ data }) => {
       {data && (
         <MotionStack {...contentWrapper(isLoaded)}>
           <HStack {...contentHeader}>
-            <Text text={strapline} textStyle="h5" variant="inverse" ml="4rem" />
+            <Text
+              text={strapline}
+              textStyle="h5"
+              variant="inverse"
+              ml={{ base: 0, md: "4rem" }}
+            />
             <Image
               alt="explore more"
               src={`${Down.src}`}
@@ -48,8 +53,8 @@ const ContentBlock: FC<IContentBlock> = ({ data }) => {
               text={title}
               textStyle="h3"
               variant="inverse"
-              width="50%"
-              my="5rem"
+              width={{ base: "20rem", md: "30rem" }}
+              my={{ base: "2rem", md: "5rem" }}
             />
             <HStack {...contentIntro}>
               <VStack {...contentStats}>{renderStats}</VStack>

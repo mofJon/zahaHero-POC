@@ -12,6 +12,7 @@ const globalCss = defineGlobalStyles({
   },
   body: {
     height: "initial",
+    overflowX: "hidden",
   },
   a: {
     textDecoration: "underline",

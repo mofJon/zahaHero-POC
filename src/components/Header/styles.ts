@@ -21,12 +21,12 @@ export const headerHolder = {
   className: css({
     position: "relative",
     width: "100%",
-    justifyContent: "center",
+    justifyContent: { base: "flex-end", lg: "center" },
   }),
 };
 
 export const headerNav = {
   className: css({
-    justifySelf: "center",
+    transform: { base: "scale(0.9)", lg: "scale(1)" },
   }),
 };

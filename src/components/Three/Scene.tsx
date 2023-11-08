@@ -40,6 +40,11 @@ const Scene = () => {
         blobY = size.height * 0.5;
       }
 
+      if (size.width < 1024) {
+        blobX = size.width * 0.5;
+        blobY = size.height * 0.3;
+      }
+
       const mask: ShaderMaterial = maskShader.current;
       mask.uniforms.iTime.value = clock.getElapsedTime();
       mask.uniforms.iMouse.value = [
@@ -60,8 +65,8 @@ const Scene = () => {
             inactive: { scale: 1 },
           }}
           transition={{
-            damping: 30,
-            stiffness: 100,
+            damping: 50,
+            // stiffness: 100,
           }}
         >
           <motion.planeGeometry args={[viewport.width, viewport.height]} />
@@ -69,7 +74,7 @@ const Scene = () => {
         </motion.mesh>
       </>
     ),
-    [isBloom],
+    [isBloom, viewport],
   );
 };
 

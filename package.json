@@ -45,6 +45,5 @@
   "engines": {
     "node": ">=18.17.0"
   },
-  "module": "index.ts",
-  "type": "module"
+  "module": "index.ts"
 }

@@ -15,9 +15,9 @@ export const textPattern = cva({
     textStyle: {
       h1: {
         ...heading,
-        fontSize: { base: "3.438rem", md: "8rem" },
+        fontSize: { base: "3.438rem", sm: "5rem", lg: "6rem", xl: "8rem" },
         fontWeight: 400,
-        lineHeight: { base: 0.7, md: 0.65 },
+        lineHeight: { base: 0.5, md: 0.65 },
       },
       h2: {
         ...heading,
@@ -39,7 +39,7 @@ export const textPattern = cva({
       },
       h6: {
         ...heading,
-        fontSize: "2xl", // 1.5rem
+        fontSize: { base: "md", md: "2xl" }, // 1.5rem
       },
       p: {
         fontSize: "md", // 1rem

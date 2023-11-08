@@ -10,7 +10,7 @@ export const backgroundHolder = {
 };
 
 export const mainContainer = {
-  position: "fixed",
+  position: { base: "relative", lg: "fixed" },
   zIndex: 2,
   minHeight: "100dvh",
   top: 0,
@@ -24,15 +24,17 @@ export const scrollContainer = {
 export const heroWrapper = {
   className: css({
     position: "relative",
-    height: "85dvh",
+    height: { base: "initial", lg: "88dvh" },
     width: "100%",
     zIndex: 3,
+    alignItems: { base: "center", lg: "center" },
+    flexDirection: { base: "column", lg: "row" },
   }),
 };
 
 export const contentWrapper = (active: boolean) => ({
   className: css({
-    marginTop: "calc(100dvh - 10rem)",
+    // marginTop: { base: "auto", md: "calc(100dvh - 10rem)" },
     background: "white",
     borderRadius: "2rem 2rem 0 0",
     // height: "50dvh",
@@ -68,7 +70,7 @@ export const contentHeader = {
 export const contentMain = {
   className: css({
     width: "100%",
-    paddingLeft: "4rem",
+    px: { base: "2rem", md: "4rem" },
     alignItems: "flex-start",
   }),
 };
@@ -85,11 +87,13 @@ export const contentStats = {
     gap: "1.5rem",
     justifyContent: "flex-start",
     alignItems: "flex-start",
+    display: { base: "none", md: "flex" },
   }),
 };
 
 export const mainTitle = {
   className: css({
+    m: { base: "10rem 0 5rem", lg: "initial" },
     justifyContent: "flex-start",
     alignItems: "flex-start",
     textAlign: "left",

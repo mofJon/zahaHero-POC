@@ -5,19 +5,20 @@ import Diagonal from "@assets/images/iconArrowDiagonal.png";
 
 export const cardWrapper = {
   className: css({
-    position: "absolute",
-    right: "-5rem",
+    position: { base: "relative", lg: "absolute" },
+    right: { base: "initial", lg: "-5rem" },
+    mb: { base: "4rem", lg: "initial" },
     cursor: "pointer",
     display: "grid",
     gridTemplateColumns: 2,
-    gridGap: "1.5rem !important",
+    gridGap: { base: "0.5rem !important", md: "1.5rem !important" },
   }),
 };
 
 export const card = (controls: AnimationControls) => ({
   className: css({
     position: "relative",
-    width: "15rem",
+    width: { base: "100%", sm: "15rem" },
     alignItems: "flex-start",
     textAlign: "left",
     background: "rgba(0,0,0,0.2)",

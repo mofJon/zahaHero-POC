@@ -1,7 +1,7 @@
 "use client";
 import { useMemo } from "react";
 import { CardSections, MotionBox, Three } from "@components";
-import { Container, HStack } from "@panda/jsx";
+import { Container, Stack } from "@panda/jsx";
 import Image from "next/image";
 import Background from "@assets/images/home.jpg";
 import ContentBlock from "./ContentBlock";
@@ -49,10 +49,10 @@ const Home = () => {
           </MotionBox>
         )}
         <Three /> {/* shader component */}
-        <HStack {...heroWrapper}>
+        <Stack {...heroWrapper}>
           <ContentTitle title={title} cta={cta} />
           <CardSections data={sections} />
-        </HStack>
+        </Stack>
       </Container>
       <ContentBlock data={content} />
     </>
