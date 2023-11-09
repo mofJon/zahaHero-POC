@@ -5,9 +5,11 @@ import { Container, HStack, Spacer } from "@panda/jsx";
 import Image from "next/image";
 import Nav from "@assets/images/iconNav.svg";
 import { headerContainer, logoHolder, headerHolder, headerNav } from "./styles";
-import { fadeIn } from "@theme/animations";
+import { fadeIn, slideIn } from "@theme/animations";
 import { useRouter, usePathname } from "next/navigation";
 import useStore from "@store";
+import { DotLottiePlayer } from "@dotlottie/react-player";
+import "@dotlottie/react-player/dist/index.css";
 interface HeaderProps {
   isActive?: boolean;
 }
@@ -26,8 +28,8 @@ const Header: FC<HeaderProps> = ({ isActive = true }) => {
   return (
     <Container {...headerContainer}>
       <HStack {...headerHolder}>
-        <MotionBox {...fadeIn(isActive)} {...logoHolder} onClick={handleGoHome}>
-          Zaha Hadid Architects
+        <MotionBox {...slideIn} {...logoHolder} onClick={handleGoHome}>
+          <DotLottiePlayer src="assets/lottie/zhalogo.lottie" autoplay />
         </MotionBox>
         <MotionBox {...headerNav} {...fadeIn(isLoaded, 1.4)}>
           <Image

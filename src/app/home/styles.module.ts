@@ -23,7 +23,7 @@ export const scrollContainer = {
 
 export const heroWrapper = {
   className: css({
-    position: "relative",
+    position: { base: "relative", lg: "fixed" },
     height: { base: "initial", lg: "88dvh" },
     width: "100%",
     zIndex: 3,
@@ -34,7 +34,7 @@ export const heroWrapper = {
 
 export const contentWrapper = (active: boolean) => ({
   className: css({
-    // marginTop: { base: "auto", md: "calc(100dvh - 10rem)" },
+    marginTop: { base: "auto", lg: "calc(100dvh - 10rem)" },
     background: "white",
     borderRadius: "2rem 2rem 0 0",
     // height: "50dvh",
@@ -79,6 +79,14 @@ export const contentIntro = {
   className: css({
     width: "100%",
   }),
+};
+
+export const contentTitle = {
+  className: css({
+    width: { base: "20rem", md: "40rem" },
+    my: { base: "2rem", md: "5rem" },
+  }),
+  variant: "inverse",
 };
 
 export const contentStats = {

@@ -5,6 +5,8 @@ export const logoHolder = {
     position: "absolute",
     left: 0,
     color: "white",
+    width: "12rem",
+    cursor: "pointer",
   }),
 };
 

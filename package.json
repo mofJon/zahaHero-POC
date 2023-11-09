@@ -14,6 +14,7 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@dotlottie/react-player": "^1.6.5",
     "@react-three/drei": "^9.88.11",
     "@react-three/fiber": "^8.15.10",
     "framer-motion": "^10.16.4",

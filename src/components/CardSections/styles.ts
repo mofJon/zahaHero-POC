@@ -6,7 +6,7 @@ import Diagonal from "@assets/images/iconArrowDiagonal.png";
 export const cardWrapper = {
   className: css({
     position: { base: "relative", lg: "absolute" },
-    right: { base: "initial", lg: "-5rem" },
+    right: { base: "initial", lg: "3rem" },
     mb: { base: "4rem", lg: "initial" },
     cursor: "pointer",
     display: "grid",
@@ -95,31 +95,68 @@ export const cardCopy = {
   },
 };
 
-export const cardCTA = {
+// because background position shifting wasn't working as expected
+export const cardCTAHolder = {
   className: css({
     position: "absolute",
     right: "2rem",
     bottom: "2rem",
-    color: "brand.white",
+    width: "20px",
+    height: "21px",
+    overflow: "hidden",
+  }),
+};
+
+export const cardCTA = {
+  className: css({
     width: "20px",
     height: "21px",
     backgroundImage: `url('data:image/svg+xml,<svg viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.2178 3.59103L0.343852 18.4649L2.185 20.3061L17.0316 5.45947L17.0316 16.6099H19.6354V2.8557L19.6759 2.8152L19.6354 2.7747V0.987229L17.8479 0.98723L17.8347 0.974048L17.8216 0.987231H17.0316L17.0316 0.98726L4.01274 0.987259L4.01274 3.59103L15.2178 3.59103Z" fill="white"/></svg>')`,
-    // backgroundImage: `url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6oAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACISURBVHgBrdDbDYAgDEDR1jiAIziSG4ibuAluppsgJCQ2hkdbehM+aMIhAGAc/gchBvquCYybS7cAP9cFEfEARvFnfGmuenLGXN4+MFLCwtcd10r2fhjLczlYw1RgCxODPUwEcjA2yMVYoATrglKsCWqwKqjFyNm09mGspG9mGEFPM4ygCxj0AgY7i0727o+bAAAAAElFTkSuQmCC")`,
     backgroundPosition: "top left",
     backgroundSize: "20px 21px",
-    backgroundRepeat: "no-repeat",
+    // backgroundRepeat: "no-repeat",
   }),
   variants: {
     inactive: {
-      backgroundPosition: "20px -21px",
+      x: 20,
+      y: -21,
       ...smooth,
     },
     hover: {
-      backgroundPosition: ["-20 21", "0 0"],
+      x: [-20, 0],
+      y: [21, 0],
       ...smooth,
-      transition: {
-        delay: 0.3,
-      },
     },
   },
 };
+
+// original background position animation
+
+// export const cardCTA = {
+//   className: css({
+//     position: "absolute",
+//     right: "2rem",
+//     bottom: "2rem",
+//     color: "brand.white",
+//     width: "20px",
+//     height: "21px",
+//     backgroundImage: `url('data:image/svg+xml,<svg viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.2178 3.59103L0.343852 18.4649L2.185 20.3061L17.0316 5.45947L17.0316 16.6099H19.6354V2.8557L19.6759 2.8152L19.6354 2.7747V0.987229L17.8479 0.98723L17.8347 0.974048L17.8216 0.987231H17.0316L17.0316 0.98726L4.01274 0.987259L4.01274 3.59103L15.2178 3.59103Z" fill="white"/></svg>')`,
+//     // backgroundImage: `url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6oAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACISURBVHgBrdDbDYAgDEDR1jiAIziSG4ibuAluppsgJCQ2hkdbehM+aMIhAGAc/gchBvquCYybS7cAP9cFEfEARvFnfGmuenLGXN4+MFLCwtcd10r2fhjLczlYw1RgCxODPUwEcjA2yMVYoATrglKsCWqwKqjFyNm09mGspG9mGEFPM4ygCxj0AgY7i0727o+bAAAAAElFTkSuQmCC")`,
+//     backgroundPosition: "top left",
+//     backgroundSize: "20px 21px",
+//     backgroundRepeat: "no-repeat",
+//   }),
+//   variants: {
+//     inactive: {
+//       backgroundPosition: "20px -21px",
+//       ...smooth,
+//     },
+//     hover: {
+//       backgroundPosition: ["-20 21", "0 0"],
+//       ...smooth,
+//       transition: {
+//         delay: 0.3,
+//       },
+//     },
+//   },
+// };

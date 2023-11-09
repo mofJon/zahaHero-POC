@@ -1,8 +1,8 @@
 "use client";
 import { FC, useMemo } from "react";
 import { MotionBox, MotionStack, Text } from "@components";
-import { Flex } from "@panda/jsx";
-import { card, cardCTA, cardCopy, cardTitle } from "./styles";
+import { Box } from "@panda/jsx";
+import { card, cardCTA, cardCopy, cardTitle, cardCTAHolder } from "./styles";
 import { useAnimation } from "framer-motion";
 import useStore from "@store";
 
@@ -42,7 +42,9 @@ const CardSection: FC<ICardSection> = ({ data }) => {
       >
         <Text text={title} {...cardTitle} />
         <Text text={description} {...cardCopy} />
-        <MotionBox {...cardCTA} />
+        <Box {...cardCTAHolder}>
+          <MotionBox {...cardCTA} />
+        </Box>
       </MotionStack>
     ),
     [controls],

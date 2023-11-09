@@ -17,6 +17,17 @@ const globalCss = defineGlobalStyles({
   a: {
     textDecoration: "underline",
   },
+  ".lottie-intro": {
+    height: "100dvh !important",
+    filter: "blur(80px)",
+  },
+  ".lottie-intro.lottie-intro-text": {
+    filter: "blur(0px)",
+    position: "absolute",
+    zIndex: 1,
+    top: 0,
+    left: 0,
+  },
 });
 
 export default globalCss;

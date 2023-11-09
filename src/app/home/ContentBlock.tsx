@@ -6,6 +6,7 @@ import {
   contentWrapper,
   scrollContainer,
   contentHeader,
+  contentTitle,
   contentIntro,
   contentMain,
   contentStats,
@@ -49,13 +50,7 @@ const ContentBlock: FC<IContentBlock> = ({ data }) => {
             />
           </HStack>
           <VStack {...contentMain}>
-            <Text
-              text={title}
-              textStyle="h3"
-              variant="inverse"
-              width={{ base: "20rem", md: "30rem" }}
-              my={{ base: "2rem", md: "5rem" }}
-            />
+            <Text text={title} textStyle="h3" {...contentTitle} />
             <HStack {...contentIntro}>
               <VStack {...contentStats}>{renderStats}</VStack>
               <Text text={copy} textStyle="p" variant="copy" />

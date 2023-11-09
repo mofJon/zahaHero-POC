@@ -1,5 +1,4 @@
 "use client";
-import { useMemo } from "react";
 import { CardSections, MotionBox, Three } from "@components";
 import { Container, Stack } from "@panda/jsx";
 import Image from "next/image";
@@ -8,12 +7,7 @@ import ContentBlock from "./ContentBlock";
 import ContentTitle from "./ContentTitle";
 import useStore from "@store";
 import { fadeIn } from "@theme/animations";
-import {
-  backgroundHolder,
-  heroWrapper,
-  mainContainer,
-  mainTitle,
-} from "./styles.module";
+import { backgroundHolder, heroWrapper, mainContainer } from "./styles.module";
 
 const Home = () => {
   const [homeData, isLoaded, sections, setHeroLoaded] = useStore((state) => [

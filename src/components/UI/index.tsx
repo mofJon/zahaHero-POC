@@ -17,7 +17,6 @@ const UI: FC<IUI> = ({ children, data }) => {
   // wouldn't do this with remote fetches. Just for local JSON
   useEffect(() => {
     if (data && data !== storedData) {
-      console.log("ui", data, storedData);
       setData(data);
     }
   }, [data]);
