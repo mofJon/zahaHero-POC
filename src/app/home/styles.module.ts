@@ -1,3 +1,4 @@
+import { TextVariant } from "@components/Text/types";
 import { css } from "@panda/css";
 
 export const backgroundHolder = {
@@ -86,7 +87,7 @@ export const contentTitle = {
     width: { base: "20rem", md: "40rem" },
     my: { base: "2rem", md: "5rem" },
   }),
-  variant: "inverse",
+  variant: "inverse" as TextVariant,
 };
 
 export const contentStats = {
