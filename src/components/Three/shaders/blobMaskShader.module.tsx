@@ -65,7 +65,7 @@ export const BlobMaskMaterial = shaderMaterial(
         float theta = dot(-lDir,spotDir);
         float dist = abs(length(lightPos - fragPos));
         float att = (1.0/(dist*dist));
-        return clamp((theta-cone)/(decay),0.0,1.0)*clamp(att,0.1,1.0);
+        return clamp((theta-cone)/(decay),0.0,0.2)*clamp(att,0.1,0.5);
     }
     
     float EaseOutQuad(float x)
@@ -112,7 +112,7 @@ export const BlobMaskMaterial = shaderMaterial(
         else if (c < 0.75)
             heatmapColor = mix(color3, color4, (c - 0.5) * 4.0);
         else
-            heatmapColor = color4;
+            heatmapColor = color1;
     
         //spotlight code
 
@@ -134,7 +134,7 @@ export const BlobMaskMaterial = shaderMaterial(
         // Blend the spotlight effect with the heatmap color using multiply blend mode
         vec3 finalColor = heatmapColor * spotlight * phong;
     
-        finalColor = clamp(finalColor * 2.9, 0.0, 1.);
+        finalColor = clamp(finalColor * 2.9, 0.0, 1.0);
     
         fragColor = vec4(finalColor, 1.0);
     }

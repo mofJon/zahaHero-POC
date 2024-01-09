@@ -1,6 +1,9 @@
 import { cache } from "react";
+// import { promises as fs } from 'fs';
 
 const getData = cache(async () => {
+  // const file = await fs.readFile(process.cwd() + '/app/data.json', 'utf8');
+
   const domainRoot = process.env.NEXT_PUBLIC_URL;
   const rnd = Math.round(Math.random() * 100); //clear cache
 

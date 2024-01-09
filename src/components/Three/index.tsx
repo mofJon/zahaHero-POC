@@ -15,7 +15,7 @@ const Three = () => {
         <Suspense fallback={null}>
           <Scene />
         </Suspense>
-        {/* <Perf /> */}
+        <Perf position="bottom-left" style={{ zIndex: 10 }} />
       </Canvas>
     </Box>
   );

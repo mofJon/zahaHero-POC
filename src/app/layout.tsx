@@ -5,7 +5,7 @@ import { Helvetica, HelveticaBold } from "@theme/fonts";
 import getData from "@utils/getData";
 
 export const metadata: Metadata = {
-  title: "ZHA - Matter of Form Test",
+  title: "ZAHA - Matter of Form POC",
   description: "Test animated hero",
 };
 

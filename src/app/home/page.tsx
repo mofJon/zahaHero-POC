@@ -2,7 +2,7 @@
 import { CardSections, MotionBox, Three } from "@components";
 import { Container, Stack } from "@panda/jsx";
 import Image from "next/image";
-import Background from "@assets/images/home.jpg";
+import Background from "@assets/images/homeGradient.jpg";
 import ContentBlock from "./ContentBlock";
 import ContentTitle from "./ContentTitle";
 import useStore from "@store";
@@ -38,6 +38,7 @@ const Home = () => {
               onLoad={handleHeroLoaded}
               style={{
                 objectFit: "cover",
+                display: "none",
               }}
             />
           </MotionBox>
@@ -45,10 +46,10 @@ const Home = () => {
         <Three /> {/* shader component */}
         <Stack {...heroWrapper}>
           <ContentTitle title={title} cta={cta} />
-          <CardSections data={sections} />
+          {/* <CardSections data={sections} /> */}
         </Stack>
       </Container>
-      <ContentBlock data={content} />
+      {/* <ContentBlock data={content} /> */}
     </>
   );
 };

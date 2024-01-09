@@ -7,6 +7,5 @@ export const canvasHolder = {
     position: "fixed",
     left: 0,
     top: 0,
-    mixBlendMode: "multiply",
   }),
 };
