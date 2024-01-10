@@ -18,7 +18,7 @@ const ZahaCyclone = (props: any) => {
 
   const { glassSize, glassZ, rotationX, rotationY, rotationZ } = useControls({
     glassSize: { value: 1.2, min: 0, max: 10 },
-    glassZ: { value: -9.3, min: -20, max: 20 },
+    glassZ: { value: -9.3, min: -50, max: 20 },
     rotationX: { value: 0, min: -Math.PI, max: Math.PI },
     rotationY: { value: 0, min: -Math.PI, max: Math.PI },
     rotationZ: { value: -0.3, min: -Math.PI, max: Math.PI },
@@ -41,8 +41,9 @@ const ZahaCyclone = (props: any) => {
     // background: { value: bgTex},
   });
 
-  const [{ thickness }, set] = useControls(() => ({
+  const [{ thickness, wireframeMesh }, set] = useControls(() => ({
     thickness: { value: 0.5, min: 0, max: 5 },
+    wireframeMesh: { value: false },
   }));
 
   const getMouseSpeed = (e: any) => {
@@ -105,6 +106,7 @@ const ZahaCyclone = (props: any) => {
           attach="material"
           {...glassOptions}
           thickness={thickness}
+          wireframe={wireframeMesh}
         />
       </mesh>
     </group>

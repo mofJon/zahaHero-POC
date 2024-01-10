@@ -37,7 +37,7 @@ const Scene = () => {
 
   const { bgSize, bgZ } = useControls({
     bgSize: { value: 3, min: 1, max: 100 },
-    bgZ: { value: -9.2, min: -20, max: 20 },
+    bgZ: { value: -9.2, min: -50, max: 20 },
   });
 
   // const glassOptions = useControls({
