@@ -19,8 +19,6 @@ const Header: FC<HeaderProps> = ({ isActive = true }) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  if (pathname === "/") return null;
-
   const handleGoHome = () => {
     router.push("/");
   };

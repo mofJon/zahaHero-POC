@@ -96,8 +96,8 @@ export const mainTitle = {
   className: css({
     m: { base: "10rem 0 5rem", lg: "initial" },
     justifyContent: "flex-start",
-    alignItems: "flex-start",
+    alignItems: "flex-start !important",
     textAlign: "left",
-    gap: "2rem",
+    gap: "2rem !important",
   }),
 };
