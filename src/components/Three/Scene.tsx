@@ -1,7 +1,6 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { extend, useFrame, useThree, useLoader } from "@react-three/fiber";
-import { MeshTransmissionMaterial } from "@react-three/drei";
 import { ShaderMaterial, SRGBColorSpace } from "three";
 import { BlobMaskMaterial } from "./shaders/blobMaskShader.module";
 import { useMousePosition } from "@hooks";
@@ -27,6 +26,8 @@ const images = [
   "assets/images/home2.jpg",
 ];
 
+let currSlideshow = true;
+
 const Scene = () => {
   const maskShader = useRef();
   const glassRef = useRef<any>();
@@ -51,23 +52,32 @@ const Scene = () => {
 
   const bgTexs = [bgTex0, bgTex1, bgTex2];
 
-  const { bgSize, bgZ, showOverlay, blendMode, zoomTransition } = useControls({
-    backgroundPosition: folder({
-      bgSize: { value: 3, min: 1, max: 100 },
-      bgZ: { value: -9.2, min: -50, max: 20 },
-    }),
-    colorOverlayOptions: folder({
-      blendMode: { value: 1, min: 0, max: 6, step: 1 },
-      showOverlay: { value: false },
-    }),
-    slideAnims: folder({
-      zoomTransition: { value: true },
-    }),
-  });
+  const { bgSize, bgZ, showOverlay, blendMode, zoomTransition, slideshow } =
+    useControls({
+      backgroundPosition: folder({
+        bgSize: { value: 3, min: 1, max: 100 },
+        bgZ: { value: -9.2, min: -50, max: 20 },
+      }),
+      colorOverlayOptions: folder({
+        blendMode: { value: 1, min: 0, max: 6, step: 1 },
+        showOverlay: { value: false },
+      }),
+      slideAnims: folder({
+        zoomTransition: { value: true },
+        slideshow: { value: true },
+      }),
+    });
 
   useEffect(() => {
     setShaderLoaded(true);
   }, []);
+
+  useEffect(() => {
+    if (slideshow) {
+      swapTextures("active");
+    }
+    currSlideshow = slideshow;
+  }, [slideshow]);
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
@@ -103,7 +113,7 @@ const Scene = () => {
   const swapTextures = (anim: string) => {
     if (anim === "active") {
       setTimeout(() => {
-        setAnimState("inactive");
+        currSlideshow && setAnimState("inactive");
       }, 3000);
     } else {
       const nextImg = currImg === bgTexs.length - 1 ? 0 : currImg + 1;
