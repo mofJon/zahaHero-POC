@@ -9,15 +9,19 @@ const glb = "assets/3D/zhaCyclone2.glb";
 const ZahaCyclone = (props: any) => {
   const glassMat = useRef<any>();
   const glassRef = useRef<any>();
-  const pulse = useSpring(0, { damping: 30, stiffness: 100 });
+  const pulse: any = useSpring(0, { damping: 30, stiffness: 100 });
+  const xPos: any = useSpring(0, { damping: 30, stiffness: 100 });
+  const yPos: any = useSpring(0, { damping: 30, stiffness: 100 });
 
-  const { glassSize, glassZ, rotationX, rotationY, rotationZ } = useControls({
-    glassSize: { value: 0.4, min: 0, max: 10 },
-    glassZ: { value: -0.5, min: -50, max: 20 },
-    rotationX: { value: 0, min: -Math.PI, max: Math.PI },
-    rotationY: { value: 0, min: -Math.PI, max: Math.PI },
-    rotationZ: { value: -0.3, min: -Math.PI, max: Math.PI },
-  });
+  const { glassSize, glassZ, rotationX, rotationY, rotationZ, mouseSpinSpeed } =
+    useControls({
+      glassSize: { value: 0.4, min: 0, max: 10 },
+      glassZ: { value: -0.5, min: -50, max: 20 },
+      rotationX: { value: 0, min: -Math.PI, max: Math.PI },
+      rotationY: { value: 0, min: -Math.PI, max: Math.PI },
+      rotationZ: { value: -0.3, min: -Math.PI, max: Math.PI },
+      mouseSpinSpeed: { value: 0.001, min: 0.00001, max: 0.1 },
+    });
 
   const glassOptions = useControls({
     // transmission: { value: 2, min: 0, max: 100 },
@@ -44,7 +48,11 @@ const ZahaCyclone = (props: any) => {
 
   const getMouseSpeed = (e: any) => {
     const speed = (Math.abs(e.movementX) + Math.abs(e.movementY)) * 0.08;
+    const x = (e.clientX - window.innerWidth / 2) * mouseSpinSpeed;
+    const y = (e.clientY - window.innerHeight / 2) * mouseSpinSpeed;
     pulse.set(speed);
+    xPos.set(x);
+    yPos.set(y);
   };
 
   useEffect(() => {
@@ -57,10 +65,12 @@ const ZahaCyclone = (props: any) => {
   useFrame(() => {
     if (glassRef.current) {
       glassRef.current.rotation.y -= 0.0005;
+      glassRef.current.rotation.x = xPos.current;
+      glassRef.current.rotation.z = yPos.current;
     }
 
     if (glassMat.current) {
-      glassMat.current.thickness = (pulse as any).current + thickness;
+      glassMat.current.thickness = pulse.current + thickness;
       glassMat.current._transmission =
         (pulse as any).current * 0.5 + transmission;
     }
