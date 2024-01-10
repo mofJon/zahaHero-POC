@@ -35,29 +35,12 @@ const Scene = () => {
   const bgTex = useLoader(TextureLoader, "assets/images/homeGradient.jpg");
   bgTex.colorSpace = SRGBColorSpace;
 
-  const { bgSize, bgZ } = useControls({
+  const { bgSize, bgZ, colorOverlay, overlayBlend } = useControls({
     bgSize: { value: 3, min: 1, max: 100 },
     bgZ: { value: -9.2, min: -50, max: 20 },
+    overlayBlend: { value: 1, min: 0, max: 6, step: 1 },
+    colorOverlay: { value: false },
   });
-
-  // const glassOptions = useControls({
-  //   transmission: { value: 2, min: 0, max: 100},
-  //   thickness: { value: 2, min: 0, max: 5},
-  //   backsideThickness: { value: 5, min: 0, max: 100},
-  //   roughness: { value: 0, min: 0, max: 1},
-  //   chromaticAberration: { value: 0.22, min: 0, max: 1},
-  //   anisotropicBlur: { value: 0.1, min: 0, max: 1},
-  //   distortion: { value: 0.2, min: 0, max: 10},
-  //   distortionScale: { value: 0.2, min: 0, max: 10},
-  //   temporalDistortion: { value: 0.26, min: 0, max: 1},
-  //   transmissionSampler: { value: false},
-  //   backside: { value: false},
-  //   // resolution: { value: undefined, min: 0, max: 10},
-  //   // backsideResolution: { value: undefined, min: 0, max: 20},
-  //   samples: { value: 6, min: 0, max: 20},
-  //   // background: { value: bgTex},
-
-  // })
 
   useEffect(() => {
     setShaderLoaded(true);
@@ -113,29 +96,31 @@ const Scene = () => {
             <meshBasicMaterial map={bgTex} />
           </motion.mesh>
         </group>
-        {/* <motion.mesh
-          animate={isBloom ? "active" : "inactive"}
-          variants={{
-            active: { scale: 8 },
-            inactive: { scale: 1 },
-          }}
-          transition={{
-            damping: 50,
-            // stiffness: 100,
-          }}
-          position-z={5}
-        >
-          <motion.planeGeometry args={[viewport.width, viewport.height]} />
-          <blobMaskMaterial ref={maskShader} />
-        </motion.mesh>  */}
-        {/* <mesh ref={glassRef} rotation-x={0.8} position-z={glassZ}>
-          <boxGeometry args={[glassSize,glassSize, glassSize]} />
-          <MeshTransmissionMaterial {...glassOptions} />
-        </mesh> */}
+        {colorOverlay && (
+          <motion.mesh
+            animate={isBloom ? "active" : "inactive"}
+            variants={{
+              active: { opacity: 0.5, scale: 8 },
+              inactive: { opacity: 0.5, scale: 1 },
+            }}
+            transition={{
+              damping: 50,
+              // stiffness: 100,
+            }}
+          >
+            <motion.planeGeometry args={[viewport.width, viewport.height]} />
+            <blobMaskMaterial
+              ref={maskShader}
+              blending={overlayBlend}
+              transparent={true}
+              depthWrite={false}
+            />
+          </motion.mesh>
+        )}
         <ZahaCyclone />
       </>
     ),
-    [isBloom, viewport, bgZ, bgSize],
+    [isBloom, viewport, bgZ, bgSize, colorOverlay, overlayBlend],
   );
 };
 

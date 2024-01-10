@@ -29,7 +29,7 @@ const Header: FC<HeaderProps> = ({ isActive = true }) => {
         <MotionBox {...slideIn} {...logoHolder} onClick={handleGoHome}>
           <DotLottiePlayer src="assets/lottie/zhalogo.lottie" autoplay />
         </MotionBox>
-        <MotionBox {...headerNav} {...fadeIn(isLoaded, 1.4)}>
+        {/* <MotionBox {...headerNav} {...fadeIn(isLoaded, 1.4)}>
           <Image
             alt="nav"
             src={`${Nav.src}`}
@@ -39,7 +39,7 @@ const Header: FC<HeaderProps> = ({ isActive = true }) => {
             priority
             style={{ marginRight: "-1rem" }}
           />
-        </MotionBox>
+        </MotionBox> */}
       </HStack>
     </Container>
   );

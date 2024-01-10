@@ -95,7 +95,7 @@ export const BlobMaskMaterial = shaderMaterial(
   
     void mainImage(out vec4 fragColor, in vec2 fragCoord) {
         vec2 uv = fragCoord.xy / iResolution.xy;
-        float c = noise_perlin(vec3(SCALE * uv, iTime * 0.45))+0.3;
+        float c =  noise_perlin(vec3(SCALE * uv, iTime * 0.25))+0.1;
     
         // Define the heatmap colors
         vec3 color1 = vec3(0.0, 0.0, 0.0);  
@@ -124,19 +124,19 @@ export const BlobMaskMaterial = shaderMaterial(
         float phong = dot(lDir,vec3(0,0,1.0));
       
         float spotlight = Spotlight(
-            vec3(EaseOutQuad(ms.x * 0.53), -EaseOutQuad(ms.y * 0.53), -0.4),
+            vec3(EaseOutQuad(ms.x * 0.53), -EaseOutQuad(ms.y * 0.83), -0.4),
             vec3(uv2.x / 1.5, uv2.y / 1.5, 0.2),
             lDir,
-            0.7,
-            0.4
+            0.1,
+            3.5
         );
     
         // Blend the spotlight effect with the heatmap color using multiply blend mode
         vec3 finalColor = heatmapColor * spotlight * phong;
     
         finalColor = clamp(finalColor * 2.9, 0.0, 1.0);
-    
-        fragColor = vec4(finalColor, 1.0);
+  
+        fragColor = vec4(finalColor, 1.0 - (spotlight * 2.0));
     }
 
     void main() {
