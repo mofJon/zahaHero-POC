@@ -1,38 +1,57 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { DotLottiePlayer, PlayerEvents } from "@dotlottie/react-player";
-import "@dotlottie/react-player/dist/index.css";
+import { CardSections, MotionBox, Three } from "@components";
+import { Container, Stack } from "@panda/jsx";
+import Image from "next/image";
+import Background from "@assets/images/homeGradient.jpg";
+import ContentBlock from "./ContentBlock";
+import ContentTitle from "./ContentTitle";
+import useStore from "@store";
+import { fadeIn } from "@theme/animations";
+import { backgroundHolder, heroWrapper, mainContainer } from "./styles.module";
 
-const Splash = () => {
-  const router = useRouter();
+const Home = () => {
+  const [homeData, isLoaded, sections, setHeroLoaded] = useStore((state) => [
+    state.homeData,
+    state.isLoaded,
+    state.sections,
+    state.setHeroLoaded,
+  ]);
 
-  const handleEvent = (event: PlayerEvents) => {
-    if (event === "ready") {
-      const svgElement = document.querySelector(
-        ".lottie-intro svg",
-      ) as SVGElement;
-      svgElement.setAttribute("preserveAspectRatio", "xMidYMid slice");
-    }
-    if (event === "complete") {
-      router.push("/home");
-    }
+  const { content, cta, title } = homeData;
+
+  const handleHeroLoaded = () => {
+    setHeroLoaded(true);
   };
 
   return (
     <>
-      <DotLottiePlayer
-        className="lottie-intro"
-        src="assets/lottie/intro.lottie"
-        autoplay
-        onEvent={handleEvent}
-      />
-      <DotLottiePlayer
-        className="lottie-intro lottie-intro-text"
-        src="assets/lottie/introText.lottie"
-        autoplay
-      />
+      <Container {...mainContainer}>
+        {Background && (
+          <MotionBox {...backgroundHolder} {...fadeIn(isLoaded, 1, 2)}>
+            <Image
+              alt="architecture"
+              src={`${Background.src}`}
+              quality={100}
+              fill
+              priority
+              sizes="100vw"
+              onLoad={handleHeroLoaded}
+              style={{
+                objectFit: "cover",
+                display: "none",
+              }}
+            />
+          </MotionBox>
+        )}
+        <Three /> {/* shader component */}
+        <Stack {...heroWrapper}>
+          <ContentTitle title={title} cta={cta} />
+          {/* <CardSections data={sections} /> */}
+        </Stack>
+      </Container>
+      {/* <ContentBlock data={content} /> */}
     </>
   );
 };
 
-export default Splash;
+export default Home;
