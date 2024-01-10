@@ -27,7 +27,7 @@ const Home = () => {
     <>
       <Container {...mainContainer}>
         {Background && (
-          <MotionBox {...backgroundHolder} {...fadeIn(isLoaded, 1, 2)}>
+          <MotionBox {...backgroundHolder} {...fadeIn(true, 1, 2)}>
             <Image
               alt="architecture"
               src={`${Background.src}`}
