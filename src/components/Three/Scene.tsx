@@ -36,8 +36,8 @@ const Scene = () => {
   bgTex.colorSpace = SRGBColorSpace;
 
   const { bgSize, bgZ } = useControls({
-    bgSize: { value: 1, min: 1, max: 100 },
-    bgZ: { value: 1.2, min: -20, max: 20 },
+    bgSize: { value: 3, min: 1, max: 100 },
+    bgZ: { value: -9.2, min: -20, max: 20 },
   });
 
   // const glassOptions = useControls({
