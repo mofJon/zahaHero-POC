@@ -73,10 +73,13 @@ const Scene = () => {
   }, []);
 
   useEffect(() => {
-    if (slideshow) {
+    if (slideshow && !currSlideshow) {
+      currSlideshow = true;
       swapTextures("active");
     }
-    currSlideshow = slideshow;
+    if (!slideshow && currSlideshow) {
+      currSlideshow = false;
+    }
   }, [slideshow]);
 
   useFrame(({ clock }) => {
