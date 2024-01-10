@@ -4,7 +4,7 @@ import { useGLTF, MeshTransmissionMaterial } from "@react-three/drei";
 import { useControls } from "leva";
 import { useSpring } from "framer-motion";
 
-const glb = "assets/3D/zhaCyclone.glb";
+const glb = "assets/3D/zhaCyclone2.glb";
 
 // let speed: number = 0;
 let mouseInterval: any;
@@ -17,9 +17,9 @@ const ZahaCyclone = (props: any) => {
   // const thick = useSpring(speed);
 
   const { glassSize, glassZ, rotationX, rotationY, rotationZ } = useControls({
-    glassSize: { value: 0.3, min: 0, max: 10 },
-    glassZ: { value: 1.5, min: -20, max: 20 },
-    rotationX: { value: -2.9, min: -Math.PI, max: Math.PI },
+    glassSize: { value: 1.2, min: 0, max: 10 },
+    glassZ: { value: -9.3, min: -20, max: 20 },
+    rotationX: { value: 0, min: -Math.PI, max: Math.PI },
     rotationY: { value: 0, min: -Math.PI, max: Math.PI },
     rotationZ: { value: -0.3, min: -Math.PI, max: Math.PI },
   });
@@ -42,7 +42,7 @@ const ZahaCyclone = (props: any) => {
   });
 
   const [{ thickness }, set] = useControls(() => ({
-    thickness: { value: 2, min: 0, max: 5 },
+    thickness: { value: 0.5, min: 0, max: 5 },
   }));
 
   const getMouseSpeed = (e: any) => {
@@ -100,7 +100,7 @@ const ZahaCyclone = (props: any) => {
           <MeshTransmissionMaterial {...glassOptions} side={DoubleSide} />
         </mesh> 
          */}
-      <mesh geometry={nodes.Cylinder.geometry}>
+      <mesh geometry={nodes.Cyclone.geometry}>
         <MeshTransmissionMaterial
           attach="material"
           {...glassOptions}

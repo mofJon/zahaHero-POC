@@ -35,10 +35,10 @@ const Scene = () => {
   const bgTex = useLoader(TextureLoader, "assets/images/homeGradient.jpg");
   bgTex.colorSpace = SRGBColorSpace;
 
-  // const { glassSize, glassZ } = useControls({
-  //   glassSize: { value: 4, min: 1, max: 100},
-  //   glassZ: { value: 1.2, min: -20, max: 20},
-  // })
+  const { bgSize, bgZ } = useControls({
+    bgSize: { value: 1, min: 1, max: 100 },
+    bgZ: { value: 1.2, min: -20, max: 20 },
+  });
 
   // const glassOptions = useControls({
   //   transmission: { value: 2, min: 0, max: 100},
@@ -97,20 +97,22 @@ const Scene = () => {
   return useMemo(
     () => (
       <>
-        <motion.mesh
-          animate={isBloom ? "active" : "inactive"}
-          variants={{
-            active: { scale: 8 },
-            inactive: { scale: 1 },
-          }}
-          transition={{
-            damping: 50,
-            // stiffness: 100,
-          }}
-        >
-          <motion.planeGeometry args={[viewport.width, viewport.height]} />
-          <meshBasicMaterial map={bgTex} />
-        </motion.mesh>
+        <group position-z={bgZ} scale={[bgSize, bgSize, bgSize]}>
+          <motion.mesh
+            animate={isBloom ? "active" : "inactive"}
+            variants={{
+              active: { scale: 8 },
+              inactive: { scale: 1 },
+            }}
+            transition={{
+              damping: 50,
+              // stiffness: 100,
+            }}
+          >
+            <motion.planeGeometry args={[viewport.width, viewport.height]} />
+            <meshBasicMaterial map={bgTex} />
+          </motion.mesh>
+        </group>
         {/* <motion.mesh
           animate={isBloom ? "active" : "inactive"}
           variants={{
@@ -133,7 +135,7 @@ const Scene = () => {
         <ZahaCyclone />
       </>
     ),
-    [isBloom, viewport],
+    [isBloom, viewport, bgZ, bgSize],
   );
 };
 
