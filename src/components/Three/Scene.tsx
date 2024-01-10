@@ -35,11 +35,15 @@ const Scene = () => {
   const bgTex = useLoader(TextureLoader, "assets/images/homeGradient.jpg");
   bgTex.colorSpace = SRGBColorSpace;
 
-  const { bgSize, bgZ, colorOverlay, overlayBlend } = useControls({
-    bgSize: { value: 3, min: 1, max: 100 },
-    bgZ: { value: -9.2, min: -50, max: 20 },
-    overlayBlend: { value: 1, min: 0, max: 6, step: 1 },
-    colorOverlay: { value: false },
+  const { bgSize, bgZ, showOverlay, blendMode } = useControls({
+    backgroundPosition: folder({
+      bgSize: { value: 3, min: 1, max: 100 },
+      bgZ: { value: -9.2, min: -50, max: 20 },
+    }),
+    colorOverlayOptions: folder({
+      blendMode: { value: 1, min: 0, max: 6, step: 1 },
+      showOverlay: { value: false },
+    }),
   });
 
   useEffect(() => {
@@ -96,7 +100,7 @@ const Scene = () => {
             <meshBasicMaterial map={bgTex} />
           </motion.mesh>
         </group>
-        {colorOverlay && (
+        {showOverlay && (
           <motion.mesh
             animate={isBloom ? "active" : "inactive"}
             variants={{
@@ -111,7 +115,7 @@ const Scene = () => {
             <motion.planeGeometry args={[viewport.width, viewport.height]} />
             <blobMaskMaterial
               ref={maskShader}
-              blending={overlayBlend}
+              blending={blendMode}
               transparent={true}
               depthWrite={false}
             />
@@ -120,7 +124,7 @@ const Scene = () => {
         <ZahaCyclone />
       </>
     ),
-    [isBloom, viewport, bgZ, bgSize, colorOverlay, overlayBlend],
+    [isBloom, viewport, bgZ, bgSize, showOverlay, blendMode],
   );
 };
 
