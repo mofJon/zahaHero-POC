@@ -17,8 +17,8 @@ const ZahaCyclone = (props: any) => {
   // const thick = useSpring(speed);
 
   const { glassSize, glassZ, rotationX, rotationY, rotationZ } = useControls({
-    glassSize: { value: 1.2, min: 0, max: 10 },
-    glassZ: { value: -9.3, min: -50, max: 20 },
+    glassSize: { value: 0.4, min: 0, max: 10 },
+    glassZ: { value: 0.24, min: -50, max: 20 },
     rotationX: { value: 0, min: -Math.PI, max: Math.PI },
     rotationY: { value: 0, min: -Math.PI, max: Math.PI },
     rotationZ: { value: -0.3, min: -Math.PI, max: Math.PI },
@@ -30,14 +30,14 @@ const ZahaCyclone = (props: any) => {
     roughness: { value: 0, min: 0, max: 1 },
     chromaticAberration: { value: 0.22, min: 0, max: 1 },
     anisotropicBlur: { value: 0.1, min: 0, max: 1 },
-    distortion: { value: 0.2, min: 0, max: 10 },
+    distortion: { value: 0.1, min: 0, max: 10 },
     distortionScale: { value: 0.2, min: 0, max: 10 },
     temporalDistortion: { value: 0.26, min: 0, max: 1 },
     transmissionSampler: { value: false },
     backside: { value: false },
     // resolution: { value: undefined, min: 0, max: 10},
     // backsideResolution: { value: undefined, min: 0, max: 20},
-    samples: { value: 6, min: 0, max: 20 },
+    samples: { value: 10, min: 0, max: 30, step: 1 },
     // background: { value: bgTex},
   });
 
