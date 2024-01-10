@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { extend, useFrame, useThree, useLoader } from "@react-three/fiber";
 import { MeshTransmissionMaterial } from "@react-three/drei";
 import { ShaderMaterial, SRGBColorSpace } from "three";
@@ -21,6 +21,12 @@ declare global {
   }
 }
 
+const images = [
+  "assets/images/home0.jpg",
+  "assets/images/home1.jpg",
+  "assets/images/home2.jpg",
+];
+
 const Scene = () => {
   const maskShader = useRef();
   const glassRef = useRef<any>();
@@ -31,11 +37,21 @@ const Scene = () => {
     state.bloom,
     state.setShaderLoaded,
   ]);
+  const [animState, setAnimState] = useState("inactive");
+  const [currImg, setCurrImg] = useState(-1);
 
-  const bgTex = useLoader(TextureLoader, "assets/images/homeGradient.jpg");
-  bgTex.colorSpace = SRGBColorSpace;
+  const bgTex0 = useLoader(TextureLoader, images[0]);
+  bgTex0.colorSpace = SRGBColorSpace;
 
-  const { bgSize, bgZ, showOverlay, blendMode } = useControls({
+  const bgTex1 = useLoader(TextureLoader, images[1]);
+  bgTex0.colorSpace = SRGBColorSpace;
+
+  const bgTex2 = useLoader(TextureLoader, images[2]);
+  bgTex0.colorSpace = SRGBColorSpace;
+
+  const bgTexs = [bgTex0, bgTex1, bgTex2];
+
+  const { bgSize, bgZ, showOverlay, blendMode, zoomTransition } = useControls({
     backgroundPosition: folder({
       bgSize: { value: 3, min: 1, max: 100 },
       bgZ: { value: -9.2, min: -50, max: 20 },
@@ -43,6 +59,9 @@ const Scene = () => {
     colorOverlayOptions: folder({
       blendMode: { value: 1, min: 0, max: 6, step: 1 },
       showOverlay: { value: false },
+    }),
+    slideAnims: folder({
+      zoomTransition: { value: true },
     }),
   });
 
@@ -81,50 +100,83 @@ const Scene = () => {
     }
   });
 
-  return useMemo(
-    () => (
-      <>
-        <group position-z={bgZ} scale={[bgSize, bgSize, bgSize]}>
-          <motion.mesh
-            animate={isBloom ? "active" : "inactive"}
+  const swapTextures = (anim: string) => {
+    if (anim === "active") {
+      setTimeout(() => {
+        setAnimState("inactive");
+      }, 3000);
+    } else {
+      const nextImg = currImg === bgTexs.length - 1 ? 0 : currImg + 1;
+      setCurrImg(nextImg);
+      setAnimState("active");
+    }
+  };
+
+  const bgAnim = {
+    initial: "inactive",
+    animate: animState,
+    transition: {
+      type: "spring",
+      damping: 30,
+      stiffness: 100,
+    },
+  };
+
+  const bgAnimOut = {
+    type: "tween",
+    duration: 0.2,
+  };
+
+  return (
+    <>
+      <group position-z={bgZ} scale={[bgSize, bgSize, bgSize]}>
+        <motion.mesh
+          {...bgAnim}
+          variants={{
+            inactive: {
+              scale: zoomTransition ? 0.4 : 1,
+              transition: bgAnimOut,
+            },
+            active: { scale: 1 },
+          }}
+        >
+          <motion.planeGeometry args={[viewport.width, viewport.height]} />
+          <motion.meshBasicMaterial
+            map={bgTexs[currImg]}
+            transparent
+            {...bgAnim}
             variants={{
-              active: { scale: 8 },
-              inactive: { scale: 1 },
+              inactive: { opacity: 0, transition: bgAnimOut },
+              active: { opacity: 1 },
             }}
-            transition={{
-              damping: 50,
-              // stiffness: 100,
-            }}
-          >
-            <motion.planeGeometry args={[viewport.width, viewport.height]} />
-            <meshBasicMaterial map={bgTex} />
-          </motion.mesh>
-        </group>
-        {showOverlay && (
-          <motion.mesh
-            animate={isBloom ? "active" : "inactive"}
-            variants={{
-              active: { opacity: 0.5, scale: 8 },
-              inactive: { opacity: 0.5, scale: 1 },
-            }}
-            transition={{
-              damping: 50,
-              // stiffness: 100,
-            }}
-          >
-            <motion.planeGeometry args={[viewport.width, viewport.height]} />
-            <blobMaskMaterial
-              ref={maskShader}
-              blending={blendMode}
-              transparent={true}
-              depthWrite={false}
-            />
-          </motion.mesh>
-        )}
-        <ZahaCyclone />
-      </>
-    ),
-    [isBloom, viewport, bgZ, bgSize, showOverlay, blendMode],
+            onAnimationComplete={swapTextures}
+            needsUpdate
+          />
+        </motion.mesh>
+      </group>
+      {showOverlay && (
+        <motion.mesh
+          animate={isBloom ? "active" : "inactive"}
+          variants={{
+            active: { opacity: 0.5, scale: 8 },
+            inactive: { opacity: 0.5, scale: 1 },
+          }}
+          transition={{
+            damping: 50,
+            // stiffness: 100,
+          }}
+        >
+          <motion.planeGeometry args={[viewport.width, viewport.height]} />
+          <blobMaskMaterial
+            ref={maskShader}
+            blending={blendMode}
+            transparent={true}
+            depthWrite={false}
+          />
+        </motion.mesh>
+      )}
+      <ZahaCyclone />
+    </>
   );
 };
 
