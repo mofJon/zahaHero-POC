@@ -49,6 +49,7 @@ const ZahaCyclone = (props: any) => {
 
   useEffect(() => {
     document.addEventListener("mousemove", getMouseSpeed);
+    document.addEventListener("mouseleave", () => pulse.set(0));
   }, []);
 
   const { nodes }: any = useGLTF(glb);
@@ -63,8 +64,6 @@ const ZahaCyclone = (props: any) => {
       glassMat.current._transmission =
         (pulse as any).current * 0.5 + transmission;
     }
-
-    console.log(glassMat.current, transmission);
   });
 
   return (
