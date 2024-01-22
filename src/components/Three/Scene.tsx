@@ -28,6 +28,14 @@ const images = [
 
 let currSlideshow = true;
 
+const blendModes = [1, 1, 2];
+const showOverlays = [false, true, true];
+const descriptions = [
+  "default",
+  "spotlight color overlay",
+  "colour overlay add",
+];
+
 const Scene = () => {
   const maskShader = useRef();
   const glassRef = useRef<any>();
@@ -52,21 +60,48 @@ const Scene = () => {
 
   const bgTexs = [bgTex0, bgTex1, bgTex2];
 
-  const { bgSize, bgZ, showOverlay, blendMode, zoomTransition, slideshow } =
-    useControls({
-      backgroundPosition: folder({
-        bgSize: { value: 3, min: 1, max: 100 },
-        bgZ: { value: -9.2, min: -50, max: 20 },
-      }),
-      colorOverlayOptions: folder({
-        blendMode: { value: 1, min: 0, max: 6, step: 1 },
-        showOverlay: { value: false },
-      }),
-      slideAnims: folder({
-        zoomTransition: { value: true },
-        slideshow: { value: true },
-      }),
-    });
+  const [
+    {
+      bgSize,
+      bgZ,
+      showOverlay,
+      blendMode,
+      zoomTransition,
+      slideshow,
+      slideDuration,
+    },
+    set,
+  ] = useControls(() => ({
+    backgroundPosition: folder({
+      bgSize: { value: 3, min: 1, max: 100 },
+      bgZ: { value: -9.2, min: -50, max: 20 },
+    }),
+    colorOverlayOptions: folder({
+      blendMode: { value: 1, min: 0, max: 6, step: 1 },
+      showOverlay: { value: false },
+    }),
+    slideAnims: folder({
+      zoomTransition: { value: true },
+      slideshow: { value: true },
+      slideDuration: { value: 5, min: 1, max: 10, step: 1 },
+    }),
+    DEFAULT_SETTINGS: folder({
+      defaults: {
+        value: 0,
+        min: 0,
+        max: 2,
+        step: 1,
+        onChange: (v) => {
+          set({
+            blendMode: blendModes[v],
+            showOverlay: showOverlays[v],
+            description: descriptions[v],
+          });
+        },
+      },
+      description: { value: "main" },
+    }),
+  }));
 
   useEffect(() => {
     setShaderLoaded(true);
@@ -81,6 +116,11 @@ const Scene = () => {
       currSlideshow = false;
     }
   }, [slideshow]);
+
+  // useEffect(() => {
+  //   clearTimeout(slideTimeout);
+  //   swapTextures("active");
+  // }, [slideDuration]);
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
@@ -117,7 +157,7 @@ const Scene = () => {
     if (anim === "active") {
       setTimeout(() => {
         currSlideshow && setAnimState("inactive");
-      }, 3000);
+      }, slideDuration * 500);
     } else {
       const nextImg = currImg === bgTexs.length - 1 ? 0 : currImg + 1;
       setCurrImg(nextImg);
